@@ -32,9 +32,9 @@ const StyledPaginate = styled(ReactPaginate)({
     },
 })
 
-const ProductsSection = ({ filteredProducts,refresh }) => {
+const ProductsSection = ({ filteredProducts,refresh,pageNum,setPageNum }) => {
 
-    const[pageNum,setPageNum] = useState(0);
+
     const[pageCount, setPageCount ] = useState(null);
     const[productsArray, setProductsArray ] = useState(null);
 
@@ -42,17 +42,9 @@ const ProductsSection = ({ filteredProducts,refresh }) => {
     const pagesVisited = pageNum * productPerPage;
  
     useEffect( () => {
-        if(filteredProducts){
-            setPageNum(0);
-            setPageCount(Math.ceil(filteredProducts.length/productPerPage));
-            setProductsArray(filteredProducts?.slice(pagesVisited, productPerPage + pagesVisited));
-        }
-        else{
-            setPageCount(Math.ceil(productsData.length/productPerPage));
-            setProductsArray(productsData.slice(pagesVisited, productPerPage + pagesVisited))
-        }
-
-    },[filteredProducts,pageNum, refresh])
+        setPageCount(Math.ceil(filteredProducts.length/productPerPage));
+        setProductsArray(filteredProducts?.slice(pagesVisited, productPerPage + pagesVisited));
+    },[filteredProducts,pageNum])
 
     const displayProducts = productsArray?.map( (product,index) => {
         return(

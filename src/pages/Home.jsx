@@ -23,9 +23,9 @@ const Filters = styled(Select)({
 //////////////////////////////////////////////////////////////////////
 const Home = () => {
 
-
-    const[filteredProducts , setFilteredProducts ] = useState(null);
+    const[filteredProducts , setFilteredProducts ] = useState(productsData);
     const[refresh, setRefresh] = useState(null);
+    const[pageNum,setPageNum] = useState(0);
 
     const options1 = [
         { value : 'computer electronics' , label:'Computer electronics'},
@@ -36,10 +36,11 @@ const Home = () => {
     const options2 = [
         { value: 'high to low' , label : 'Price high to low'},
         { value: 'low to high' , label : 'Price low to high'},
-        
     ]
+
     const handleFilters = ( selectedItem, action) => {
 
+        setPageNum(0);
         if(action.name==='categoryFilter'){
             const products = productsData.filter( product => product.category === selectedItem.value);
             setFilteredProducts(products);
@@ -48,13 +49,10 @@ const Home = () => {
             setRefresh( prev => !prev);
             let products;
             if(selectedItem.value==='low to high'){
-                console.log('low to high');
-                products = productsData.sort( function(a,b){ return a.price - b.price });
- 
+                products = [...filteredProducts.sort( function(a,b){ return a.price - b.price })];
             }
             else{
-                console.log('high to low');
-                products = productsData.sort( function(a,b){ return b.price - a.price });
+                products = [...filteredProducts.sort( function(a,b){ return b.price - a.price })];
             }
             setFilteredProducts(products);
 
@@ -78,7 +76,7 @@ const Home = () => {
                 closeMenuOnSelect = { true }
                 />
         </FilterBox>
-        <ProductsSection filteredProducts={filteredProducts} refresh={refresh}/>
+        <ProductsSection filteredProducts={filteredProducts} refresh={refresh} pageNum={pageNum} setPageNum={setPageNum}/>
     </MainBox>
   )
 }
