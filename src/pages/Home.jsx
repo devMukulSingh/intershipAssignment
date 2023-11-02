@@ -5,12 +5,20 @@ import ProductsSection from '../components/ProductsSection';
 import { productsData } from '../constants/constants';
 
 
-const MainBox = styled(Box)({
-    padding:"2rem 8rem",
+const MainBox = styled(Box)(({theme}) =>({
+    padding:"2rem 2rem",
+    color:'#000',
+    width:'75rem',
     display:'flex',
-    flexDirection:'column',
-    color:'#000'
-})
+    alignItems:"center",
+    flexDirection:"column",
+    justifyContent:"center",
+
+    [theme.breakpoints.down('sm')]:{
+        padding:'1rem'
+    }
+
+}))
 const FilterBox = styled(Box)({
     display:"flex",
     flexDirection:"column",

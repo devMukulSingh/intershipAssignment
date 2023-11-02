@@ -5,14 +5,10 @@ import SingleProduct from './SingleProduct';
 import styled from '@emotion/styled';
 import ReactPaginate from "react-paginate";
 
-const StyledGrid = styled(Grid)({
-    display:'flex',
-    // gap:10,
-})
 const StyledPaginate = styled(ReactPaginate)({
     listStyleType:'none',
     display:"flex",
-    gap:'3rem',
+    gap:'2rem',
     textTransform:'capitalize',
     alignItems:"center",
     justifyContent:"center",
@@ -29,10 +25,11 @@ const StyledPaginate = styled(ReactPaginate)({
     '& > li:first-of-child, li:last-of-child':{
         fontSize:20,
         fontWeight:600,
-    },
+    }
+
 })
 
-const ProductsSection = ({ filteredProducts,refresh,pageNum,setPageNum }) => {
+const ProductsSection = ({ filteredProducts,pageNum,setPageNum }) => {
 
 
     const[pageCount, setPageCount ] = useState(null);
@@ -48,7 +45,7 @@ const ProductsSection = ({ filteredProducts,refresh,pageNum,setPageNum }) => {
 
     const displayProducts = productsArray?.map( (product,index) => {
         return(
-            <Grid item lg={3} md={6} sm={12} key={index}>
+            <Grid item xl={3} lg={3} md={4} sm={6} xs={12} key={index}>
                 <SingleProduct product={product}/>
             </Grid>
         )
@@ -60,9 +57,9 @@ const ProductsSection = ({ filteredProducts,refresh,pageNum,setPageNum }) => {
 
   return (
     <Box>
-          <StyledGrid container>
+          <Grid container spacing={1}>
                 { displayProducts }
-            </StyledGrid>  
+            </Grid>  
 
             <StyledPaginate
                 previousLabel='< previous'
